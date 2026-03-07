@@ -4,7 +4,11 @@
   "description": "A lightweight CLI task tracker with JSON-file persistence",
   "type": "module",
   "main": "src/index.ts",
+  "bin": {
+    "taskkit": "src/cli.ts"
+  },
   "scripts": {
+    "start": "bun src/cli.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
