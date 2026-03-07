@@ -3,13 +3,13 @@ version: 1
 mode: watch
 
 runner:
-  bin: claude
+  bin: /tmp/taskkit-cli/run-claude.sh
   approval_mode: full-auto
   max_iterations: 40
 
 profiles:
   default:
-    bin: claude
+    bin: /tmp/taskkit-cli/run-claude.sh
     model: sonnet
 
 roles:
