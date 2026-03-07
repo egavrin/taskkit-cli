@@ -10,3 +10,6 @@ export function getName(): string {
 }
 
 export default { getName, getVersion };
+
+export { runAdd } from "./commands/add.js";
+export { runList } from "./commands/list.js";
