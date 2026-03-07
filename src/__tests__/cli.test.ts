@@ -105,4 +105,28 @@ describe("runCLI", () => {
       await unlink("tasks.json").catch(() => undefined);
     }
   });
+
+  it("'done' without id exits 1", async () => {
+    const { io, err } = makeIO();
+    await expect(runCLI(["done"], io)).rejects.toThrow("process.exit(1)");
+    expect(err.some((e) => e.includes("<id> is required"))).toBe(true);
+  });
+
+  it("'rm' without id exits 1", async () => {
+    const { io, err } = makeIO();
+    await expect(runCLI(["rm"], io)).rejects.toThrow("process.exit(1)");
+    expect(err.some((e) => e.includes("<id> is required"))).toBe(true);
+  });
+
+  it("'done' with unknown id exits 1 with 'Task not found'", async () => {
+    const { io, err } = makeIO();
+    await expect(runCLI(["done", "no-such-id"], io)).rejects.toThrow("process.exit(1)");
+    expect(err.some((e) => e.includes("Task not found"))).toBe(true);
+  });
+
+  it("'rm' with unknown id exits 1 with 'Task not found'", async () => {
+    const { io, err } = makeIO();
+    await expect(runCLI(["rm", "no-such-id"], io)).rejects.toThrow("process.exit(1)");
+    expect(err.some((e) => e.includes("Task not found"))).toBe(true);
+  });
 });

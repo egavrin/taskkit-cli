@@ -1,6 +1,8 @@
 #!/usr/bin/env bun
 import { runAdd } from "./commands/add.js";
 import { runList } from "./commands/list.js";
+import { runDone } from "./commands/done.js";
+import { runRm } from "./commands/rm.js";
 
 export interface ParsedArgs {
   command: string | undefined;
@@ -43,6 +45,8 @@ function printUsage(out: (msg: string) => void): void {
   out("Commands:");
   out("  add    Add a new task");
   out("  list   List tasks");
+  out("  done   Mark a task as done");
+  out("  rm     Remove a task");
   out("");
   out("Options for add:");
   out("  --title       Task title (required)");
@@ -68,7 +72,7 @@ export async function runCLI(
   const stderr = options.stderr ?? ((msg) => console.error(msg));
   const exit = options.exit ?? ((code) => process.exit(code));
 
-  const { command, flags } = parseArgs(argv);
+  const { command, flags, positional } = parseArgs(argv);
 
   if (!command) {
     printUsage(stderr);
@@ -82,6 +86,12 @@ export async function runCLI(
       break;
     case "list":
       await runList(flags, { stdout, stderr, exit });
+      break;
+    case "done":
+      await runDone(positional[0], { stdout, stderr, exit });
+      break;
+    case "rm":
+      await runRm(positional[0], { stdout, stderr, exit });
       break;
     default:
       stderr(`Unknown command: ${command}`);
