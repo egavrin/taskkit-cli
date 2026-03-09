@@ -1,0 +1,23 @@
+{
+  "name": "taskkit-cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "taskkit": "src/cli.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "start": "bun run src/cli.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@typescript-eslint/eslint-plugin": "^8.46.0",
+    "@typescript-eslint/parser": "^8.46.0",
+    "eslint": "^9.36.0",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}
